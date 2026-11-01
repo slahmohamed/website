@@ -6,7 +6,6 @@ Write-Host "SouqPlus POS Server running at http://localhost:8080/"
 while ($listener.IsListening) {
     try {
         $context = $listener.GetContext()
-        $request = $context.Request
         $response = $context.Response
         
         $filePath = "d:\smartApp\index.html"
