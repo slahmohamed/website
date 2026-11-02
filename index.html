@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>سوق بلس | SouqPlus POS & Inventory</title>
+  <title>سوبرماركت بلس | Supermarket Plus POS & Inventory</title>
   
   <!-- PWA Meta Tags -->
   <meta name="theme-color" content="#0f172a">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="سوق بلس">
+  <meta name="apple-mobile-web-app-title" content="سوبرماركت بلس">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -110,7 +110,7 @@
       </div>
       <div>
         <div class="flex items-center gap-1.5">
-          <span class="font-extrabold text-sm md:text-base tracking-tight text-white">سوق بلس</span>
+          <span class="font-extrabold text-sm md:text-base tracking-tight text-white">سوبرماركت بلس</span>
           <span id="roleBadge" class="text-[10px] px-1.5 py-0.5 rounded font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">كاشير</span>
           <span id="userDisplayName" class="text-[11px] text-slate-300 hidden sm:inline font-semibold"></span>
         </div>
@@ -180,13 +180,15 @@
         </button>
       </div>
 
-      <!-- Categories Filter Pills -->
+      <!-- Supermarket Categories Filter Pills -->
       <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 text-xs">
-        <button onclick="selectCategory('all')" class="cat-pill active px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold whitespace-nowrap transition">الكل</button>
-        <button onclick="selectCategory('أدوية وصحة')" class="cat-pill px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium whitespace-nowrap transition">أدوية وصحة</button>
-        <button onclick="selectCategory('مواد غذائية')" class="cat-pill px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium whitespace-nowrap transition">مواد غذائية</button>
-        <button onclick="selectCategory('مشروبات')" class="cat-pill px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium whitespace-nowrap transition">مشروبات</button>
-        <button onclick="selectCategory('منظفات')" class="cat-pill px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium whitespace-nowrap transition">منظفات</button>
+        <button onclick="selectCategory('all')" class="cat-pill active px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold whitespace-nowrap transition">الكل 🛒</button>
+        <button onclick="selectCategory('ألبان وأجبان')" class="cat-pill px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium whitespace-nowrap transition">ألبان وأجبان 🥛</button>
+        <button onclick="selectCategory('معلبات وزيوت')" class="cat-pill px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium whitespace-nowrap transition">معلبات وزيوت 🥫</button>
+        <button onclick="selectCategory('مشروبات وعصائر')" class="cat-pill px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium whitespace-nowrap transition">مشروبات وعصائر 🥤</button>
+        <button onclick="selectCategory('مخبوزات وحلويات')" class="cat-pill px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium whitespace-nowrap transition">مخبوزات وحلويات 🍞</button>
+        <button onclick="selectCategory('خضار وموزونات')" class="cat-pill px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium whitespace-nowrap transition">خضار وموزونات ⚖️</button>
+        <button onclick="selectCategory('منظفات وعناية')" class="cat-pill px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium whitespace-nowrap transition">منظفات وعناية 🧼</button>
       </div>
 
       <!-- Product Catalog Grid -->
@@ -448,6 +450,21 @@
           </div>
         </div>
 
+        <!-- Supermarket Cash Change Calculator (Visible on Cash) -->
+        <div id="cashCalcBox" class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 space-y-2">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-slate-400 font-medium">المبلغ المستلم من الزبون:</span>
+            <div class="flex items-center gap-1">
+              <input type="number" id="cashReceivedInput" oninput="calculateCashChange()" placeholder="0" class="w-28 text-left bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-white font-black text-xs focus:outline-none focus:border-emerald-500">
+              <span class="text-[10px] text-slate-400">ج.س</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between text-xs font-bold pt-1.5 border-t border-slate-800/80">
+            <span class="text-slate-300">الباقي للزبون:</span>
+            <span class="text-emerald-400 font-black text-sm"><span id="cashChangeAmount">0</span> <span class="text-[10px] text-slate-400 font-normal">ج.س</span></span>
+          </div>
+        </div>
+
         <!-- Complete Checkout Button -->
         <button onclick="executeCheckout()" id="btnConfirmCheckout" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-black text-base shadow-lg shadow-emerald-900/40 flex items-center justify-center gap-2 transition active:scale-98">
           <i class="fa-solid fa-circle-check text-lg"></i>
@@ -535,18 +552,27 @@
           <input type="text" id="prodFormName" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 focus:outline-none focus:border-emerald-500" placeholder="مثال: شاي الغزالتين 250جم">
         </div>
 
-        <div class="grid grid-cols-2 gap-2">
+        <div class="grid grid-cols-3 gap-2">
           <div>
             <label class="block text-slate-300 mb-1 font-medium">الباركود (SKU):</label>
-            <input type="text" id="prodFormSku" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono focus:outline-none focus:border-emerald-500" placeholder="628100650123">
+            <input type="text" id="prodFormSku" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-2.5 py-2 text-slate-100 font-mono focus:outline-none focus:border-emerald-500" placeholder="628100650123">
           </div>
           <div>
             <label class="block text-slate-300 mb-1 font-medium">التصنيف:</label>
-            <select id="prodFormCategory" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 focus:outline-none focus:border-emerald-500">
-              <option value="مواد غذائية">مواد غذائية</option>
-              <option value="أدوية وصحة">أدوية وصحة</option>
-              <option value="مشروبات">مشروبات</option>
-              <option value="منظفات">منظفات</option>
+            <select id="prodFormCategory" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-2 py-2 text-slate-100 focus:outline-none focus:border-emerald-500">
+              <option value="ألبان وأجبان">ألبان وأجبان</option>
+              <option value="معلبات وزيوت">معلبات وزيوت</option>
+              <option value="مشروبات وعصائر">مشروبات وعصائر</option>
+              <option value="مخبوزات وحلويات">مخبوزات وحلويات</option>
+              <option value="خضار وموزونات">خضار وموزونات</option>
+              <option value="منظفات وعناية">منظفات وعناية</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1 font-medium">نوع الوحدة:</label>
+            <select id="prodFormUnitType" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-2 py-2 text-slate-100 focus:outline-none focus:border-emerald-500">
+              <option value="unit">قطعة / عبوة</option>
+              <option value="kg">كيلوجرام (موزون)</option>
             </select>
           </div>
         </div>
@@ -698,48 +724,75 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL: USER & PASSWORD MANAGEMENT (ADMIN ONLY) ==================== -->
+  <!-- ==================== MODAL: USER & CASHIER MANAGEMENT (ADMIN ONLY) ==================== -->
   <div id="userManagementModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-sm w-full p-5 space-y-4 shadow-2xl">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-5 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto no-scrollbar">
       <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
         <div class="flex items-center gap-2 text-white font-extrabold text-sm">
           <i class="fa-solid fa-users-gear text-teal-400"></i>
-          <span>إدارة المستخدمين وكلمات المرور</span>
+          <span>إدارة كاشيرات ومستخدمي المحل</span>
         </div>
         <button onclick="closeUserManagementModal()" class="text-slate-400 hover:text-white">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <div class="space-y-3 text-xs">
-        <p class="text-[11px] text-slate-400">يمكنك هنا تغيير كلمات السر الخاصة بالكاشير أو حساب مالك النظام فورياً:</p>
+      <!-- Add New Cashier Section -->
+      <div class="bg-slate-950 border border-emerald-500/30 rounded-xl p-3 space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-user-plus"></i>
+            <span>إضافة كاشير جديد للمحل</span>
+          </span>
+          <span class="text-[10px] text-slate-400">ورديات / كاشيرات متعددين</span>
+        </div>
 
-        <!-- Change Cashier Password -->
-        <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-2">
-          <div class="flex items-center justify-between text-amber-300 font-bold">
-            <span><i class="fa-solid fa-user ml-1"></i> حساب الكاشير</span>
-            <span class="text-[10px] text-slate-400 font-mono">اسم الدخول: cashier</span>
+        <div class="space-y-2 text-xs">
+          <div>
+            <label class="block text-slate-300 mb-1 text-[11px]">اسم الكاشير (الاسم الظاهر في الفاتورة والوردية):</label>
+            <input type="text" id="newCashierDisplayName" placeholder="مثال: أحمد كاشير 1 أو كاشير الوردية المسائية" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500">
           </div>
-          <input type="text" id="manageCashierPassword" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-slate-100 font-mono" placeholder="كلمة سر الكاشير الجديدة">
-        </div>
-
-        <!-- Change Admin Password -->
-        <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-2">
-          <div class="flex items-center justify-between text-emerald-300 font-bold">
-            <span><i class="fa-solid fa-crown ml-1"></i> حساب مالك النظام (Admin)</span>
-            <span class="text-[10px] text-slate-400 font-mono">اسم الدخول: admin</span>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-slate-300 mb-1 text-[11px]">اسم المستخدم للدخول:</label>
+              <input type="text" id="newCashierUsername" placeholder="مثال: ahmed أو cashier2" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-slate-100 placeholder-slate-500 font-mono focus:outline-none focus:border-emerald-500">
+            </div>
+            <div>
+              <label class="block text-slate-300 mb-1 text-[11px]">كلمة المرور (الرمز السري):</label>
+              <input type="text" id="newCashierPassword" placeholder="مثال: 123" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-slate-100 placeholder-slate-500 font-mono focus:outline-none focus:border-emerald-500">
+            </div>
           </div>
-          <input type="password" id="manageAdminPassword" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-slate-100 font-mono" placeholder="كلمة سر المالك الجديدة">
+          <button type="button" onclick="addNewCashier()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 shadow-md shadow-emerald-950">
+            <i class="fa-solid fa-plus"></i>
+            <span>إضافة الكاشير وتثبيت حسابه</span>
+          </button>
         </div>
+      </div>
 
-        <div class="flex items-center gap-2 pt-1">
-          <button onclick="saveUsersCredentials()" class="flex-1 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold transition">
-            حفظ التعديلات
-          </button>
-          <button onclick="closeUserManagementModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300">
-            إلغاء
-          </button>
+      <!-- Current Users List -->
+      <div class="space-y-2 text-xs">
+        <span class="text-[11px] font-bold text-slate-300 block">الكاشيرات والمستخدمون المسجلون حالياً:</span>
+        <div id="usersManagementList" class="space-y-2 max-h-48 overflow-y-auto no-scrollbar">
+          <!-- Injected dynamically via renderUsersManagementList() -->
         </div>
+      </div>
+
+      <!-- Change Admin Password Section -->
+      <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-2 text-xs">
+        <div class="flex items-center justify-between text-emerald-300 font-bold">
+          <span><i class="fa-solid fa-crown ml-1"></i> كلمة سر مالك النظام (Admin)</span>
+          <span class="text-[10px] text-slate-400 font-mono">اسم الدخول: admin</span>
+        </div>
+        <input type="password" id="manageAdminPassword" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-slate-100 font-mono" placeholder="كلمة سر المالك الجديدة">
+      </div>
+
+      <div class="flex items-center gap-2 pt-1">
+        <button onclick="saveAdminPasswordOnly()" class="flex-1 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs transition">
+          حفظ كلمة سر المالك
+        </button>
+        <button onclick="closeUserManagementModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs">
+          إغلاق
+        </button>
       </div>
     </div>
   </div>
@@ -749,8 +802,8 @@
     <div class="bg-white text-slate-900 rounded-2xl max-w-sm w-full p-4 space-y-3 shadow-2xl font-mono text-xs">
       <!-- Receipt Header -->
       <div class="text-center border-b border-dashed border-slate-400 pb-2.5">
-        <h2 class="text-base font-black tracking-wider text-black">سوق بلس | SOUQPLUS</h2>
-        <p class="text-[10px] text-slate-600">نظام المبيعات ونقاط البيع الفورية</p>
+        <h2 class="text-base font-black tracking-wider text-black">سوبرماركت بلس | SUPERMARKET PLUS</h2>
+        <p class="text-[10px] text-slate-600">فاتورة مشتريات - كاشير السوبرماركت</p>
         <p class="text-[10px] text-slate-700 mt-1" id="recpDateTime">2026-10-27 18:30:00</p>
         <p class="text-[10px] font-bold text-slate-800" id="recpTxnId">فاتورة #: TX-8921</p>
       </div>
@@ -777,7 +830,7 @@
 
       <!-- Receipt Footer Barcode Sim -->
       <div class="text-center pt-2 border-t border-dashed border-slate-400 text-slate-700 text-[10px]">
-        <p class="font-bold">شكراً لزيارتكم! 🙏</p>
+        <p class="font-bold">شكراً لتسوقكم ونسعد بزيارتكم دائماً! 🙏</p>
         <p class="text-[8px] text-slate-500">تم الحفظ محلياً ودعم المزامنة اللحظية</p>
       </div>
 
@@ -785,9 +838,13 @@
       <div class="no-print pt-3 flex items-center gap-2">
         <button onclick="window.print()" class="flex-1 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-black transition">
           <i class="fa-solid fa-print"></i>
-          <span>طباعة الفاتورة</span>
+          <span>طباعة</span>
         </button>
-        <button onclick="closePrintModal()" class="px-4 py-2.5 rounded-xl bg-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-300 transition">
+        <button onclick="shareWhatsAppReceipt()" class="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition">
+          <i class="fa-brands fa-whatsapp text-sm"></i>
+          <span>واتساب 💬</span>
+        </button>
+        <button onclick="closePrintModal()" class="px-3 py-2.5 rounded-xl bg-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-300 transition">
           تم
         </button>
       </div>
@@ -829,7 +886,7 @@
      */
 
     // --- State Storage Keys ---
-    const STORAGE_KEY_PRODUCTS = 'souqplus_products_v1';
+    const STORAGE_KEY_PRODUCTS = 'supermarket_products_v2';
     const STORAGE_KEY_SETTINGS = 'souqplus_settings_v1';
     const STORAGE_KEY_SHIFTS   = 'souqplus_shifts_v1';
     const STORAGE_KEY_QUEUE    = 'souqplus_offline_deltas_v1';
@@ -872,60 +929,76 @@
       html5QrCodeScanner: null
     };
 
-    // --- Seed Initial Real-World Products & Multi-Batch FIFO Data ---
+    // --- Seed Initial Supermarket Products & Multi-Batch FIFO Data ---
     const INITIAL_SEED_PRODUCTS = [
       {
         id: 'prod_1',
         sku: '6281001',
-        name: 'شاي الغزالتين الأصلي 250جم',
-        category: 'مشروبات',
-        cost_usd: 1.20,
-        margin_percent: 25.0,
-        batches: [
-          { batch_no: 'GH-2401', qty: 24, expiry_date: '2027-02-15' },
-          { batch_no: 'GH-2311', qty: 6, expiry_date: '2026-11-20' }
-        ]
-      },
-      {
-        id: 'prod_2',
-        sku: '6281002',
-        name: 'سكر كنانة نقي 5 كجم',
-        category: 'مواد غذائية',
-        cost_usd: 3.50,
-        margin_percent: 20.0,
-        batches: [
-          { batch_no: 'KN-24A', qty: 15, expiry_date: '2027-06-30' }
-        ]
-      },
-      {
-        id: 'prod_3',
-        sku: '6281003',
         name: 'حليب كابو بودرة 900جم',
-        category: 'مواد غذائية',
+        category: 'ألبان وأجبان',
+        unit_type: 'unit',
         cost_usd: 4.80,
-        margin_percent: 22.0,
+        margin_percent: 20.0,
         batches: [
           { batch_no: 'KB-88', qty: 10, expiry_date: '2026-12-05' },
           { batch_no: 'KB-92', qty: 18, expiry_date: '2027-04-10' }
         ]
       },
       {
+        id: 'prod_2',
+        sku: '6281002',
+        name: 'زبادي كابو طازج 170جم',
+        category: 'ألبان وأجبان',
+        unit_type: 'unit',
+        cost_usd: 0.30,
+        margin_percent: 25.0,
+        batches: [
+          { batch_no: 'ZB-01', qty: 25, expiry_date: '2026-11-12' },
+          { batch_no: 'ZB-02', qty: 40, expiry_date: '2026-11-28' }
+        ]
+      },
+      {
+        id: 'prod_3',
+        sku: '6281003',
+        name: 'جبنة بيضاء بلدية فاخرة (بالكيلو)',
+        category: 'خضار وموزونات',
+        unit_type: 'kg',
+        cost_usd: 3.20,
+        margin_percent: 22.0,
+        batches: [
+          { batch_no: 'JB-14', qty: 15.5, expiry_date: '2026-12-20' }
+        ]
+      },
+      {
         id: 'prod_4',
         sku: '6281004',
-        name: 'بنادول إكسترا أحمر 24 حبة',
-        category: 'أدوية وصحة',
-        cost_usd: 1.10,
+        name: 'طماطم طازجة صنف أول (بالكيلو)',
+        category: 'خضار وموزونات',
+        unit_type: 'kg',
+        cost_usd: 0.80,
         margin_percent: 30.0,
         batches: [
-          { batch_no: 'PN-09', qty: 40, expiry_date: '2026-11-05' }, // Warning expiring soon
-          { batch_no: 'PN-12', qty: 50, expiry_date: '2027-09-15' }
+          { batch_no: 'TM-09', qty: 2.5, expiry_date: '2026-11-08' }
         ]
       },
       {
         id: 'prod_5',
         sku: '6281005',
+        name: 'سكر كنانة نقي 5 كجم',
+        category: 'معلبات وزيوت',
+        unit_type: 'unit',
+        cost_usd: 3.50,
+        margin_percent: 18.0,
+        batches: [
+          { batch_no: 'KN-24A', qty: 15, expiry_date: '2027-06-30' }
+        ]
+      },
+      {
+        id: 'prod_6',
+        sku: '6281006',
         name: 'زيت طعام يارا 1.5 لتر',
-        category: 'مواد غذائية',
+        category: 'معلبات وزيوت',
+        unit_type: 'unit',
         cost_usd: 2.30,
         margin_percent: 18.0,
         batches: [
@@ -933,26 +1006,63 @@
         ]
       },
       {
-        id: 'prod_6',
-        sku: '6281006',
-        name: 'صابون لوكس سائل لليدين 500مل',
-        category: 'منظفات',
-        cost_usd: 1.50,
-        margin_percent: 28.0,
+        id: 'prod_7',
+        sku: '6281007',
+        name: 'صلصة طماطم الفراشة 400جم',
+        category: 'معلبات وزيوت',
+        unit_type: 'unit',
+        cost_usd: 0.65,
+        margin_percent: 25.0,
         batches: [
-          { batch_no: 'LX-01', qty: 12, expiry_date: '2026-10-15' }, // Expired for testing visual cues!
-          { batch_no: 'LX-04', qty: 30, expiry_date: '2027-08-01' }
+          { batch_no: 'SL-31', qty: 32, expiry_date: '2027-08-15' }
         ]
       },
       {
-        id: 'prod_7',
-        sku: '6281007',
-        name: 'محلول جفاف أملاح ريهيدران',
-        category: 'أدوية وصحة',
-        cost_usd: 0.35,
-        margin_percent: 35.0,
+        id: 'prod_8',
+        sku: '6281008',
+        name: 'شاي الغزالتين الأصلي 250جم',
+        category: 'مشروبات وعصائر',
+        unit_type: 'unit',
+        cost_usd: 1.20,
+        margin_percent: 25.0,
         batches: [
-          { batch_no: 'RH-101', qty: 80, expiry_date: '2027-10-01' }
+          { batch_no: 'GH-2401', qty: 24, expiry_date: '2027-02-15' }
+        ]
+      },
+      {
+        id: 'prod_9',
+        sku: '6281009',
+        name: 'عصير راني برتقال حبيبات 240مل',
+        category: 'مشروبات وعصائر',
+        unit_type: 'unit',
+        cost_usd: 0.45,
+        margin_percent: 25.0,
+        batches: [
+          { batch_no: 'RN-88', qty: 48, expiry_date: '2026-12-15' }
+        ]
+      },
+      {
+        id: 'prod_10',
+        sku: '6281010',
+        name: 'بسكويت برنس شوكولاتة',
+        category: 'مخبوزات وحلويات',
+        unit_type: 'unit',
+        cost_usd: 0.40,
+        margin_percent: 30.0,
+        batches: [
+          { batch_no: 'PR-10', qty: 35, expiry_date: '2027-03-01' }
+        ]
+      },
+      {
+        id: 'prod_11',
+        sku: '6281011',
+        name: 'صابون ديتول أصلي 120جم',
+        category: 'منظفات وعناية',
+        unit_type: 'unit',
+        cost_usd: 0.70,
+        margin_percent: 25.0,
+        batches: [
+          { batch_no: 'DT-02', qty: 18, expiry_date: '2027-10-10' }
         ]
       }
     ];
@@ -1075,7 +1185,7 @@
       const newShift = {
         id: 'SH-' + Math.floor(100 + Math.random() * 900),
         startTime: new Date().toISOString(),
-        cashier: 'كاشير رئيسي',
+        cashier: appState.currentUser ? (appState.currentUser.displayName || appState.currentUser.username) : 'كاشير رئيسي',
         status: 'open',
         cashSales: 0,
         bankakSales: 0,
@@ -1212,38 +1322,50 @@
         const stock = getTotalStock(item);
         const earliestBatch = getEarliestExpiry(item);
         const isOutOfStock = stock <= 0;
+        const isKg = item.unit_type === 'kg';
+        const unitLabel = isKg ? 'كجم' : 'ق';
+        const isLowStock = stock <= 3;
         
         let expiryBadgeHtml = '';
         if (earliestBatch) {
           const days = getDaysToExpiry(earliestBatch.expiry_date);
           if (days <= 0) {
             expiryBadgeHtml = `<span class="text-[9px] bg-rose-950/80 text-rose-300 px-1.5 py-0.5 rounded border border-rose-800">منتهي الصلاحية</span>`;
-          } else if (days <= 30) {
+          } else if (days <= 15) {
+            expiryBadgeHtml = `<span class="text-[9px] bg-rose-950/80 text-rose-300 px-1.5 py-0.5 rounded border border-rose-800">حرج (${days} يوم) ⚠️</span>`;
+          } else if (days <= 60) {
             expiryBadgeHtml = `<span class="text-[9px] bg-amber-950/80 text-amber-300 px-1.5 py-0.5 rounded border border-amber-800">ينتهي خلال ${days} يوم</span>`;
           }
         }
+
+        const typeBadgeHtml = isKg 
+          ? `<span class="text-[9px] bg-teal-950/80 text-teal-300 px-1.5 py-0.5 rounded border border-teal-800">⚖️ بالكيلو</span>` 
+          : '';
 
         return `
           <div onclick="${isOutOfStock ? '' : `addToCart('${item.id}')`}" 
                class="bg-slate-900 border ${isOutOfStock ? 'border-slate-800 opacity-60' : 'border-slate-800/80 hover:border-emerald-500/50 active:scale-95 cursor-pointer'} rounded-2xl p-3 flex flex-col justify-between transition shadow-md">
             <div>
-              <div class="flex items-start justify-between gap-1 mb-1.5">
+              <div class="flex items-start justify-between gap-1 mb-1.5 flex-wrap">
                 <span class="text-[10px] text-slate-400 font-mono">${item.sku}</span>
-                ${expiryBadgeHtml}
+                <div class="flex items-center gap-1">
+                  ${typeBadgeHtml}
+                  ${expiryBadgeHtml}
+                </div>
               </div>
               <h4 class="font-bold text-xs text-white line-clamp-2 leading-snug mb-2">${item.name}</h4>
             </div>
 
             <div class="pt-2 border-t border-slate-800/80 flex items-end justify-between">
               <div>
-                <span class="text-[9px] text-slate-400 block">سعر البيع</span>
+                <span class="text-[9px] text-slate-400 block">${isKg ? 'سعر الكيلو' : 'سعر البيع'}</span>
                 <div class="font-black text-sm text-emerald-400">
                   ${priceSdg.toLocaleString()} <span class="text-[9px] text-slate-400 font-normal">ج.س</span>
                 </div>
               </div>
               <div class="text-left">
-                <span class="text-[10px] px-1.5 py-0.5 rounded font-bold ${stock > 5 ? 'bg-slate-800 text-slate-300' : 'bg-rose-950/50 text-rose-400 border border-rose-900'}">
-                  ${isOutOfStock ? 'نفذ' : stock + ' ق'}
+                <span class="text-[10px] px-1.5 py-0.5 rounded font-bold ${isLowStock ? 'bg-rose-950/50 text-rose-400 border border-rose-900' : 'bg-slate-800 text-slate-300'}">
+                  ${isOutOfStock ? 'نفذ' : stock + ' ' + unitLabel}
                 </span>
               </div>
             </div>
@@ -1269,7 +1391,7 @@
     function selectCategory(cat) {
       appState.activeCategory = cat;
       document.querySelectorAll('.cat-pill').forEach(btn => {
-        if (btn.textContent.trim() === (cat === 'all' ? 'الكل' : cat)) {
+        if (btn.textContent.trim().startsWith(cat === 'all' ? 'الكل' : cat)) {
           btn.className = 'cat-pill active px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold whitespace-nowrap transition';
         } else {
           btn.className = 'cat-pill px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 font-medium whitespace-nowrap transition';
@@ -1289,21 +1411,27 @@
         return;
       }
 
+      const isKg = product.unit_type === 'kg';
+      const initialStep = isKg ? 0.25 : 1;
       const existing = appState.cart.find(c => c.productId === productId);
+
       if (existing) {
-        if (existing.qty + 1 > totalStock) {
-          alert(`لا توجد كمية كافية في المخزن. المتاح: ${totalStock}`);
+        const step = isKg ? 0.25 : 1;
+        const targetQty = Number((existing.qty + step).toFixed(2));
+        if (targetQty > totalStock) {
+          alert(`لا توجد كمية كافية بالمخزن. المتاح: ${totalStock} ${isKg ? 'كجم' : 'قطعة'}`);
           return;
         }
-        existing.qty += 1;
+        existing.qty = targetQty;
       } else {
         appState.cart.push({
           productId: product.id,
           name: product.name,
           sku: product.sku,
+          unit_type: product.unit_type || 'unit',
           cost_usd: product.cost_usd,
           margin_percent: product.margin_percent,
-          qty: 1
+          qty: initialStep
         });
       }
 
@@ -1313,8 +1441,8 @@
 
     function updateCartBadge() {
       const badge = document.getElementById('cartCountBadge');
-      const totalCount = appState.cart.reduce((sum, item) => sum + item.qty, 0);
-      badge.textContent = totalCount;
+      const totalCount = appState.cart.reduce((sum, item) => sum + (item.unit_type === 'kg' ? 1 : item.qty), 0);
+      badge.textContent = Math.round(totalCount);
       if (totalCount > 0) {
         badge.classList.remove('scale-0');
         badge.classList.add('scale-100');
@@ -1327,6 +1455,7 @@
         return;
       }
       renderCartItems();
+      calculateCashChange();
       document.getElementById('cartModal').classList.remove('hidden');
     }
 
@@ -1346,12 +1475,13 @@
 
       const product = appState.products.find(p => p.id === productId);
       const stock = getTotalStock(product);
+      const isKg = item.unit_type === 'kg';
 
-      const newQty = item.qty + delta;
+      const newQty = Number((item.qty + delta).toFixed(2));
       if (newQty <= 0) {
         appState.cart = appState.cart.filter(c => c.productId !== productId);
       } else if (newQty > stock) {
-        alert(`لا توجد كمية كافية. المخزون المتاح: ${stock}`);
+        alert(`لا توجد كمية كافية. المخزون المتاح: ${stock} ${isKg ? 'كجم' : 'قطعة'}`);
         return;
       } else {
         item.qty = newQty;
@@ -1363,6 +1493,46 @@
       } else {
         renderCartItems();
       }
+    }
+
+    function setCartItemExactQty(productId, newQtyValue) {
+      const item = appState.cart.find(c => c.productId === productId);
+      if (!item) return;
+      const product = appState.products.find(p => p.id === productId);
+      const stock = getTotalStock(product);
+      const isKg = item.unit_type === 'kg';
+      const qtyNum = Number(parseFloat(newQtyValue) || 0);
+
+      if (qtyNum <= 0) {
+        appState.cart = appState.cart.filter(c => c.productId !== productId);
+      } else if (qtyNum > stock) {
+        alert(`الكمية المدخلة أكبر من المتاح بالمخزن (${stock} ${isKg ? 'كجم' : 'قطعة'}).`);
+        item.qty = stock;
+      } else {
+        item.qty = Number(qtyNum.toFixed(2));
+      }
+      updateCartBadge();
+      renderCartItems();
+    }
+
+    function calculateCashChange() {
+      const input = document.getElementById('cashReceivedInput');
+      const changeSpan = document.getElementById('cashChangeAmount');
+      if (!changeSpan) return;
+      
+      const totalSdg = appState.cart.reduce((sum, item) => {
+        const unitPrice = calculateDynamicPriceSdg(item.cost_usd, item.margin_percent);
+        return sum + (unitPrice * item.qty);
+      }, 0);
+
+      if (!input || !input.value) {
+        changeSpan.textContent = '0';
+        return;
+      }
+
+      const received = parseFloat(input.value) || 0;
+      const change = Math.max(0, received - totalSdg);
+      changeSpan.textContent = change.toLocaleString();
     }
 
     function renderCartItems() {
@@ -1378,48 +1548,69 @@
         const unitPriceSdg = calculateDynamicPriceSdg(item.cost_usd, item.margin_percent);
         const lineTotalSdg = unitPriceSdg * item.qty;
         grandTotalSdg += lineTotalSdg;
+        const isKg = item.unit_type === 'kg';
+        const unitLabel = isKg ? 'كجم' : 'ق';
 
         return `
           <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 flex items-center justify-between">
             <div class="flex-1 pr-1">
-              <h5 class="text-xs font-bold text-white leading-tight">${item.name}</h5>
+              <div class="flex items-center gap-1.5">
+                <h5 class="text-xs font-bold text-white leading-tight">${item.name}</h5>
+                ${isKg ? '<span class="text-[9px] bg-teal-950 text-teal-300 px-1 rounded border border-teal-800">وزن</span>' : ''}
+              </div>
               <div class="text-[11px] text-slate-400 mt-1">
                 <span>${unitPriceSdg.toLocaleString()} ج.س</span>
                 <span class="mx-1">×</span>
-                <span class="font-bold text-slate-200">${item.qty}</span>
+                <span class="font-bold text-slate-200">${item.qty} ${unitLabel}</span>
                 <span class="mx-1">=</span>
                 <span class="font-bold text-emerald-400">${lineTotalSdg.toLocaleString()} ج.س</span>
               </div>
             </div>
 
-            <!-- Qty Increment / Decrement Buttons -->
-            <div class="flex items-center gap-1.5 shrink-0">
-              <button onclick="changeCartItemQty('${item.productId}', -1)" class="w-7 h-7 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-rose-400 active:scale-90">
-                <i class="fa-solid fa-minus text-xs"></i>
-              </button>
-              <span class="w-6 text-center font-black text-xs text-white">${item.qty}</span>
-              <button onclick="changeCartItemQty('${item.productId}', 1)" class="w-7 h-7 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-emerald-400 active:scale-90">
-                <i class="fa-solid fa-plus text-xs"></i>
-              </button>
+            <!-- Qty / Weight Increment / Decrement Controls -->
+            <div class="flex flex-col items-end gap-1 shrink-0">
+              <div class="flex items-center gap-1">
+                <button onclick="changeCartItemQty('${item.productId}', ${isKg ? -0.25 : -1})" class="w-7 h-7 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-rose-400 active:scale-90 font-bold text-xs">
+                  <i class="fa-solid fa-minus text-[10px]"></i>
+                </button>
+                <input type="number" step="${isKg ? 0.05 : 1}" min="${isKg ? 0.05 : 1}" value="${item.qty}" 
+                       onchange="setCartItemExactQty('${item.productId}', this.value)" 
+                       class="w-14 text-center bg-slate-900 border border-slate-700 rounded-lg py-1 text-white font-black text-xs focus:outline-none focus:border-emerald-500">
+                <button onclick="changeCartItemQty('${item.productId}', ${isKg ? 0.25 : 1})" class="w-7 h-7 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-emerald-400 active:scale-90 font-bold text-xs">
+                  <i class="fa-solid fa-plus text-[10px]"></i>
+                </button>
+              </div>
+              ${isKg ? `
+                <div class="flex items-center gap-1 text-[9px]">
+                  <button type="button" onclick="changeCartItemQty('${item.productId}', 0.25)" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold">+¼كجم</button>
+                  <button type="button" onclick="changeCartItemQty('${item.productId}', 0.50)" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold">+½كجم</button>
+                  <button type="button" onclick="changeCartItemQty('${item.productId}', 1.00)" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold">+1كجم</button>
+                </div>
+              ` : ''}
             </div>
           </div>
         `;
       }).join('');
 
       totalSpan.textContent = grandTotalSdg.toLocaleString();
+      calculateCashChange();
     }
 
     function selectPaymentMethod(method) {
       appState.selectedPaymentMethod = method;
       const cashBtn = document.getElementById('payMethodCash');
       const bankakBtn = document.getElementById('payMethodBankak');
+      const cashCalcBox = document.getElementById('cashCalcBox');
 
       if (method === 'cash') {
         cashBtn.className = 'p-3 rounded-xl border-2 border-emerald-500 bg-emerald-500/10 text-emerald-300 font-black text-xs flex items-center justify-center gap-2 transition active:scale-95';
         bankakBtn.className = 'p-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-400 font-bold text-xs flex items-center justify-center gap-2 transition active:scale-95';
+        if (cashCalcBox) cashCalcBox.classList.remove('hidden');
+        calculateCashChange();
       } else {
         bankakBtn.className = 'p-3 rounded-xl border-2 border-purple-500 bg-purple-500/10 text-purple-300 font-black text-xs flex items-center justify-center gap-2 transition active:scale-95';
         cashBtn.className = 'p-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-400 font-bold text-xs flex items-center justify-center gap-2 transition active:scale-95';
+        if (cashCalcBox) cashCalcBox.classList.add('hidden');
       }
     }
 
@@ -1487,6 +1678,7 @@
           productId: product.id,
           sku: product.sku,
           name: product.name,
+          unit_type: cartItem.unit_type || 'unit',
           qty: cartItem.qty,
           unit_cost_usd: cartItem.cost_usd,
           unit_sold_price_sdg: unitSoldPriceSdg,
@@ -1541,8 +1733,9 @@
       showReceiptModal(transactionRecord);
     }
 
-    // --- Thermal Receipt Print Modal ---
+    // --- Thermal Receipt Print & WhatsApp Share ---
     function showReceiptModal(txn) {
+      appState.lastTransaction = txn;
       document.getElementById('recpTxnId').textContent = `فاتورة #: ${txn.txnId}`;
       document.getElementById('recpDateTime').textContent = new Date(txn.timestamp).toLocaleString('ar-SD');
       document.getElementById('recpPayMethod').textContent = txn.paymentMethod === 'cash' ? 'كاش نقدى 💵' : 'بنكك / تحويل 📱';
@@ -1550,17 +1743,50 @@
       document.getElementById('recpUsdRate').textContent = txn.usd_rate_at_sale.toLocaleString();
 
       const itemsContainer = document.getElementById('recpItemsList');
-      itemsContainer.innerHTML = txn.items.map(i => `
-        <div class="flex justify-between items-start text-[11px] leading-tight">
-          <div class="flex-1">
-            <p class="font-bold text-black">${i.name}</p>
-            <span class="text-[9px] text-slate-600">${i.qty} × ${i.unit_sold_price_sdg.toLocaleString()} ج.س</span>
+      itemsContainer.innerHTML = txn.items.map(i => {
+        const unitLabel = i.unit_type === 'kg' ? 'كجم' : 'ق';
+        return `
+          <div class="flex justify-between items-start text-[11px] leading-tight">
+            <div class="flex-1">
+              <p class="font-bold text-black">${i.name}</p>
+              <span class="text-[9px] text-slate-600">${i.qty} ${unitLabel} × ${i.unit_sold_price_sdg.toLocaleString()} ج.س</span>
+            </div>
+            <span class="font-bold text-black">${i.line_total_sdg.toLocaleString()} ج.س</span>
           </div>
-          <span class="font-bold text-black">${i.line_total_sdg.toLocaleString()} ج.س</span>
-        </div>
-      `).join('');
+        `;
+      }).join('');
 
       document.getElementById('printReceiptModal').classList.remove('hidden');
+    }
+
+    function shareWhatsAppReceipt(txn = appState.lastTransaction) {
+      if (!txn) {
+        alert('لا توجد فاتورة متاحة للمشاركة!');
+        return;
+      }
+      const storeName = "سوبرماركت بلس | Supermarket Plus";
+      const dateStr = new Date(txn.timestamp).toLocaleString('ar-SD');
+      const payStr = txn.paymentMethod === 'cash' ? 'كاش نقدي 💵' : 'بنكك / تحويل موبايل 📱';
+      
+      let msg = `🛒 *فاتورة مشتريات - ${storeName}*\n`;
+      msg += `🧾 *رقم الفاتورة:* #${txn.txnId}\n`;
+      msg += `📅 *التاريخ:* ${dateStr}\n`;
+      msg += `👤 *الكاشير:* ${txn.cashier || 'كاشير المحل'}\n`;
+      msg += `💳 *طريقة الدفع:* ${payStr}\n`;
+      msg += `--------------------------------\n`;
+      
+      txn.items.forEach((item, idx) => {
+        const unitLabel = item.unit_type === 'kg' ? 'كجم' : 'ق';
+        msg += `${idx + 1}. *${item.name}*\n`;
+        msg += `   ${item.qty} ${unitLabel} × ${item.unit_sold_price_sdg.toLocaleString()} = *${item.line_total_sdg.toLocaleString()} ج.س*\n`;
+      });
+      
+      msg += `--------------------------------\n`;
+      msg += `💰 *الإجمالي النهائي:* *${txn.totalSaleSdg.toLocaleString()} ج.س*\n`;
+      msg += `✨ *شكراً لتسوقكم ونسعد بزيارتكم دائماً!* 🙏\n`;
+      
+      const encodedMsg = encodeURIComponent(msg);
+      window.open(`https://api.whatsapp.com/send?text=${encodedMsg}`, '_blank');
     }
 
     function closePrintModal() {
@@ -1791,6 +2017,10 @@
     function setAuthenticatedUser(user) {
       appState.currentUser = user;
       appState.role = user.role;
+      if (appState.currentShift) {
+        appState.currentShift.cashier = user.displayName || user.username;
+        saveCurrentShift();
+      }
       hideLoginModal();
       applyUserRole(user);
     }
@@ -1854,17 +2084,18 @@
       renderReports();
     }
 
-    // --- User & Password Management Logic (Admin Only) ---
+    // --- User & Multi-Cashier Management Logic (Admin Only) ---
     function openUserManagementModal() {
       if (appState.role !== 'admin') {
         alert('إدارة المستخدمين محصورة بمالك النظام فقط.');
         return;
       }
-      const cashierUser = appState.users.find(u => u.username === 'cashier') || { password: '123' };
       const adminUser = appState.users.find(u => u.username === 'admin') || { password: '123' };
-
-      document.getElementById('manageCashierPassword').value = cashierUser.password;
       document.getElementById('manageAdminPassword').value = adminUser.password;
+      document.getElementById('newCashierDisplayName').value = '';
+      document.getElementById('newCashierUsername').value = '';
+      document.getElementById('newCashierPassword').value = '';
+      renderUsersManagementList();
       document.getElementById('userManagementModal').classList.remove('hidden');
     }
 
@@ -1872,33 +2103,126 @@
       document.getElementById('userManagementModal').classList.add('hidden');
     }
 
-    function saveUsersCredentials() {
-      if (appState.role !== 'admin') return;
-      const newCashierPass = (document.getElementById('manageCashierPassword').value || '').trim();
-      const newAdminPass = (document.getElementById('manageAdminPassword').value || '').trim();
+    function renderUsersManagementList() {
+      const container = document.getElementById('usersManagementList');
+      if (!container) return;
 
-      if (!newCashierPass || !newAdminPass) {
-        alert('كلمات المرور لا يمكن أن تكون فارغة!');
+      container.innerHTML = appState.users.map(u => {
+        const isAdmin = u.role === 'admin';
+        return `
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-2.5 flex items-center justify-between gap-2">
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-1.5 mb-1">
+                <i class="fa-solid ${isAdmin ? 'fa-crown text-emerald-400' : 'fa-user text-amber-400'} text-xs"></i>
+                <span class="font-bold text-white text-xs truncate">${u.displayName || u.username}</span>
+                <span class="text-[9px] px-1.5 py-0.5 rounded ${isAdmin ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300'} font-bold">
+                  ${isAdmin ? 'مالك' : 'كاشير'}
+                </span>
+              </div>
+              <div class="flex items-center gap-3 text-[10px] text-slate-400 font-mono">
+                <span>اسم الدخول: <strong class="text-slate-200">${u.username}</strong></span>
+                <span>الرمز: <strong class="text-slate-200">${u.password}</strong></span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-1 shrink-0">
+              <button type="button" onclick="promptChangeUserPassword('${u.id}')" title="تعديل الرمز السري" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center gap-1 text-[10px] transition">
+                <i class="fa-solid fa-key"></i>
+                <span>تعديل</span>
+              </button>
+              ${!isAdmin && appState.users.filter(usr => usr.role === 'cashier').length > 1 ? `
+                <button type="button" onclick="deleteCashier('${u.id}')" title="حذف الكاشير" class="px-2 py-1 rounded-lg bg-rose-950/60 hover:bg-rose-900 text-rose-300 flex items-center gap-1 text-[10px] transition">
+                  <i class="fa-solid fa-trash"></i>
+                  <span>حذف</span>
+                </button>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function addNewCashier() {
+      if (appState.role !== 'admin') return;
+      const displayName = (document.getElementById('newCashierDisplayName').value || '').trim();
+      const username = (document.getElementById('newCashierUsername').value || '').trim();
+      const password = (document.getElementById('newCashierPassword').value || '').trim();
+
+      if (!displayName || !username || !password) {
+        alert('الرجاء إدخال اسم الكاشير واسم الدخول وكلمة المرور!');
         return;
       }
 
-      appState.users = appState.users.map(u => {
-        if (u.username === 'cashier') return { ...u, password: newCashierPass };
-        if (u.username === 'admin') return { ...u, password: newAdminPass };
-        return u;
-      });
-
-      localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(appState.users));
-      
-      // Update session if admin changed their own password
-      if (appState.currentUser && appState.currentUser.username === 'admin') {
-        appState.currentUser.password = newAdminPass;
-        localStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify({ username: 'admin', password: newAdminPass }));
+      // Check for duplicate username
+      if (appState.users.some(u => u.username.toLowerCase() === username.toLowerCase())) {
+        alert('اسم المستخدم هذا مستخدم مسبقاً، يرجى اختيار اسم دخول آخر!');
+        return;
       }
 
+      const newCashier = {
+        id: 'u_cashier_' + Date.now(),
+        username: username,
+        password: password,
+        displayName: displayName,
+        role: 'cashier'
+      };
+
+      appState.users.push(newCashier);
+      localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(appState.users));
+
+      document.getElementById('newCashierDisplayName').value = '';
+      document.getElementById('newCashierUsername').value = '';
+      document.getElementById('newCashierPassword').value = '';
+
+      renderUsersManagementList();
+      playBeep('success');
+      alert(`تمت بنجاح إضافة الكاشير (${displayName})!\nيمكنه الآن الدخول باسم: ${username} وكلمة المرور: ${password}`);
+    }
+
+    function deleteCashier(userId) {
+      if (appState.role !== 'admin') return;
+      const cashierToDelete = appState.users.find(u => u.id === userId);
+      if (!cashierToDelete) return;
+
+      if (confirm(`هل أنت متأكد من حذف الكاشير (${cashierToDelete.displayName || cashierToDelete.username})؟`)) {
+        appState.users = appState.users.filter(u => u.id !== userId);
+        localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(appState.users));
+        renderUsersManagementList();
+        playBeep('success');
+      }
+    }
+
+    function promptChangeUserPassword(userId) {
+      if (appState.role !== 'admin') return;
+      const user = appState.users.find(u => u.id === userId);
+      if (!user) return;
+
+      const newPass = prompt(`أدخل كلمة المرور الجديدة لـ (${user.displayName || user.username}):`, user.password);
+      if (newPass && newPass.trim()) {
+        user.password = newPass.trim();
+        localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(appState.users));
+        renderUsersManagementList();
+        playBeep('success');
+        alert(`تم تحديث كلمة المرور لـ (${user.displayName || user.username}) بنجاح!`);
+      }
+    }
+
+    function saveAdminPasswordOnly() {
+      if (appState.role !== 'admin') return;
+      const newAdminPass = (document.getElementById('manageAdminPassword').value || '').trim();
+      if (!newAdminPass) {
+        alert('كلمة مرور المالك لا يمكن أن تكون فارغة!');
+        return;
+      }
+      const adminUser = appState.users.find(u => u.username === 'admin');
+      if (adminUser) {
+        adminUser.password = newAdminPass;
+        localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(appState.users));
+        localStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify({ username: 'admin', password: newAdminPass }));
+      }
       closeUserManagementModal();
       playBeep('success');
-      alert('تم بنجاح تحديث وتأمين كلمات المرور!');
+      alert('تم بنجاح تحديث كلمة مرور مالك النظام!');
     }
 
     // --- Inventory Management Logic ---
@@ -1917,16 +2241,19 @@
         const stock = getTotalStock(item);
         const itemValUsd = item.cost_usd * stock;
         totalValUsd += itemValUsd;
-        if (stock <= 5) lowStockCount++;
+        const isKg = item.unit_type === 'kg';
+        const unitLabel = isKg ? 'كجم' : 'ق';
+        if (stock <= 3) lowStockCount++;
 
         const currentPriceSdg = calculateDynamicPriceSdg(item.cost_usd, item.margin_percent);
 
         return `
           <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 flex items-center justify-between">
             <div class="flex-1 pr-1">
-              <div class="flex items-center gap-2 mb-1">
+              <div class="flex items-center gap-2 mb-1 flex-wrap">
                 <span class="font-bold text-xs text-white">${item.name}</span>
                 <span class="text-[9px] bg-slate-800 px-1.5 py-0.5 rounded text-slate-400">${item.category}</span>
+                ${isKg ? '<span class="text-[9px] bg-teal-950 text-teal-300 border border-teal-800 px-1.5 py-0.5 rounded font-bold">⚖️ بالكيلو</span>' : ''}
               </div>
               <div class="flex items-center gap-3 text-[11px] text-slate-400">
                 <span>SKU: <span class="font-mono text-slate-300">${item.sku}</span></span>
@@ -1936,11 +2263,11 @@
             </div>
 
             <div class="text-left shrink-0 pl-2">
-              <span class="text-[10px] text-slate-400 block">سعر البيع</span>
+              <span class="text-[10px] text-slate-400 block">${isKg ? 'سعر الكيلو' : 'سعر البيع'}</span>
               <span class="text-sm font-black text-emerald-400">${currentPriceSdg.toLocaleString()} ج.س</span>
               <div class="mt-1">
-                <span class="text-[10px] px-2 py-0.5 rounded font-bold ${stock > 5 ? 'bg-slate-800 text-slate-300' : 'bg-rose-950/60 text-rose-300 border border-rose-800'}">
-                  المخزون: ${stock}
+                <span class="text-[10px] px-2 py-0.5 rounded font-bold ${stock > 3 ? 'bg-slate-800 text-slate-300' : 'bg-rose-950/60 text-rose-300 border border-rose-800'}">
+                  المخزون: ${stock} ${unitLabel}
                 </span>
               </div>
             </div>
@@ -1972,6 +2299,7 @@
       }
       document.getElementById('productForm').reset();
       document.getElementById('prodFormId').value = '';
+      document.getElementById('prodFormUnitType').value = 'unit';
       document.getElementById('productModalTitle').textContent = 'إضافة منتج جديد';
       document.getElementById('prodFormCalculatedSdg').textContent = '0';
       document.getElementById('productModal').classList.remove('hidden');
@@ -1986,6 +2314,7 @@
       document.getElementById('prodFormName').value = product.name;
       document.getElementById('prodFormSku').value = product.sku;
       document.getElementById('prodFormCategory').value = product.category;
+      document.getElementById('prodFormUnitType').value = product.unit_type || 'unit';
       document.getElementById('prodFormCostUsd').value = product.cost_usd;
       document.getElementById('prodFormMargin').value = product.margin_percent;
       document.getElementById('productModalTitle').textContent = 'تعديل بيانات المنتج';
@@ -2011,6 +2340,7 @@
       const name = document.getElementById('prodFormName').value.trim();
       const sku = document.getElementById('prodFormSku').value.trim();
       const category = document.getElementById('prodFormCategory').value;
+      const unit_type = document.getElementById('prodFormUnitType').value || 'unit';
       const cost_usd = Number(document.getElementById('prodFormCostUsd').value);
       const margin_percent = Number(document.getElementById('prodFormMargin').value);
 
@@ -2021,6 +2351,7 @@
           p.name = name;
           p.sku = sku;
           p.category = category;
+          p.unit_type = unit_type;
           p.cost_usd = cost_usd;
           p.margin_percent = margin_percent;
         }
@@ -2031,6 +2362,7 @@
           sku: sku,
           name: name,
           category: category,
+          unit_type: unit_type,
           cost_usd: cost_usd,
           margin_percent: margin_percent,
           batches: []
@@ -2064,6 +2396,7 @@
               productName: p.name,
               sku: p.sku,
               productId: p.id,
+              unit_type: p.unit_type || 'unit',
               batch_no: b.batch_no,
               qty: b.qty,
               expiry_date: b.expiry_date
@@ -2075,11 +2408,12 @@
       // Sort FIFO: Earliest expiry date first
       allBatches.sort((a, b) => new Date(a.expiry_date) - new Date(b.expiry_date));
 
-      // Calculate warning counts
+      // Calculate warning counts according to strict rules:
+      // Critical <= 15 days, Warning <= 60 days, Safe > 60 days
       allBatches.forEach(b => {
         const days = getDaysToExpiry(b.expiry_date);
-        if (days <= 0) expiredCount++;
-        else if (days <= 30) warningCount++;
+        if (days <= 15) expiredCount++;
+        else if (days <= 60) warningCount++;
         else safeCount++;
       });
 
@@ -2097,7 +2431,8 @@
       const displayed = allBatches.filter(b => {
         const days = getDaysToExpiry(b.expiry_date);
         if (filter === 'expired') return days <= 0;
-        if (filter === 'critical') return days <= 30;
+        if (filter === 'critical') return days <= 15;
+        if (filter === 'warning') return days > 15 && days <= 60;
         return true;
       });
 
@@ -2114,15 +2449,20 @@
       container.innerHTML = displayed.map(b => {
         const days = getDaysToExpiry(b.expiry_date);
         let badgeColor = 'bg-emerald-950/60 border-emerald-800 text-emerald-300';
-        let statusText = `صالح (${days} يوم متبقي)`;
+        let statusText = `آمن وصالح (${days} يوم متبقي)`;
 
         if (days <= 0) {
           badgeColor = 'bg-rose-950/80 border-rose-800 text-rose-300';
-          statusText = `منتهي الصلاحية (${Math.abs(days)} يوم مضى)`;
-        } else if (days <= 30) {
+          statusText = `منتهي الصلاحية (${Math.abs(days)} يوم مضى) ⛔`;
+        } else if (days <= 15) {
+          badgeColor = 'bg-rose-950/80 border-rose-800 text-rose-300';
+          statusText = `حرج (${days} يوم متبقي) ⚠️`;
+        } else if (days <= 60) {
           badgeColor = 'bg-amber-950/80 border-amber-800 text-amber-300';
-          statusText = `ينتهي قريباً (${days} يوم)`;
+          statusText = `تحذير (${days} يوم)`;
         }
+
+        const unitLabel = b.unit_type === 'kg' ? 'كجم' : 'وحدة';
 
         return `
           <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 flex items-center justify-between">
@@ -2134,7 +2474,7 @@
               <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-2">
                 <span>تاريخ الانتهاء: <strong class="text-slate-200">${b.expiry_date}</strong></span>
                 <span>•</span>
-                <span>الكمية: <strong class="text-emerald-400">${b.qty} وحدة</strong></span>
+                <span>الكمية: <strong class="text-emerald-400">${b.qty} ${unitLabel}</strong></span>
               </div>
             </div>
 
